@@ -35,6 +35,18 @@ const { title, description, url, image, type } = Astro.props;
     }
   </head>
   <body>
+    <header class="py-4 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <h1>サンプルブログ</h1>
+      </div>
+    </header>
     <slot />
+    <footer class="py-8 bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4">
+        <p class="text-center text-white">
+          <small class="text-sm">Sample blog</small>
+        </p>
+      </div>
+    </footer>
   </body>
 </html>
