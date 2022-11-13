@@ -1,5 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import LinkButton from "../../components/LinkButton.astro";
+
 import { getAllPosts } from "../../lib/api.js";
 
 export async function getStaticPaths() {
@@ -35,6 +37,9 @@ const url = `/articles/${slug}`;
           <div set:html={body} />
           <div set:html={more} />
         </div>
+      </div>
+      <div class="mt-10 text-center">
+        <LinkButton label="トップページに戻る" href="/" />
       </div>
     </div>
   </main>
