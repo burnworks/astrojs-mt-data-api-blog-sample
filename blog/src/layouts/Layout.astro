@@ -3,19 +3,36 @@ import "@fontsource/noto-sans-jp";
 
 export interface Props {
   title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+  type?: string;
 }
 
 const siteName: string = "Astro.js Sample Blog";
-const { title } = Astro.props;
+const { title, description, url, image, type } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
+    <title>{title ? `${title} - ${siteName}` : `${siteName}`}</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title ? `${title} - ${siteName}` : `${siteName}`}</title>
+
+    {
+      description && (
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title ? `${title}` : siteName} />
+        <meta property="og:site_name" content={siteName} />
+        <meta property="og:url" content={url} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+        <meta property="og:image:secure_url" content={image} />
+        <meta property="og:type" content={type} />
+        )
+    }
   </head>
   <body>
     <slot />
