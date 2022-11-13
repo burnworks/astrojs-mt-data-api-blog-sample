@@ -20,7 +20,6 @@ const { title, description, url, image, type } = Astro.props;
     <title>{title ? `${title} - ${siteName}` : `${siteName}`}</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
     {
       description && (
         <meta name="description" content={description} />
@@ -34,10 +33,12 @@ const { title, description, url, image, type } = Astro.props;
         )
     }
   </head>
-  <body>
+  <body class="font-body">
     <header class="py-4 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4">
-        <h1>サンプルブログ</h1>
+        <h1>
+          <a href="/">サンプルブログ</a>
+        </h1>
       </div>
     </header>
     <slot />
