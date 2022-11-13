@@ -8,7 +8,9 @@ export async function getStaticPaths() {
   const entries = await getAllPosts();
   return entries.items.map((item: any) => {
     return {
-      params: { slug: item.basename },
+      params: {
+        slug: item.basename,
+      },
       props: {
         title: item.title,
         excerpt: item.excerpt,
@@ -21,7 +23,7 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const { title, excerpt, body, more, basename, image } = Astro.props;
+const { title, excerpt, body, more, image } = Astro.props;
 
 const url = `/articles/${slug}`;
 ---
