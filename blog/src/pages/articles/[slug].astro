@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getAllPosts } from "../../lib/api.js";
+
+export async function getStaticPaths() {
+  const entries = await getAllPosts();
+  return entries.items.map((item: any) => {
+    return {
+      params: { slug: item.basename },
+      props: {
+        title: item.title,
+        excerpt: item.excerpt,
+        body: item.body,
+        more: item.more,
+        image: item.customFields[0].value,
+      },
+    };
+  });
+}
+
+const { slug } = Astro.params;
+const { title, excerpt, body, more, basename, image } = Astro.props;
+
+const url = `/articles/${slug}`;
+---
+
+<Layout description={excerpt} url={url} image={image} type="Article">
+  <main class="pt-6 pb-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="border-b border-gray-100 pb-2">
+        <h2 class="text-lg font-bold sm:text-xl">{title}</h2>
+      </div>
+      <div class="mt-6">
+        <div class="prose prose-a:underline hover:prose-a:text-red-800 max-w-full">
+          <div set:html={body} />
+          <div set:html={more} />
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
