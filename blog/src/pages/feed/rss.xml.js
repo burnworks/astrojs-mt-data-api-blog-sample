@@ -10,6 +10,7 @@ export const get = () => rss({
     title: siteName,
     description: description,
     site: url,
+    customData: `<language>ja</language>`,
     items: entries.items.map((item) => ({
         link: `${url}articles/${item.basename}/`,
         title: item.title,
