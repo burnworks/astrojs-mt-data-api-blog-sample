@@ -1,0 +1,73 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getAllCategories, getCategoriesPost } from "../../../lib/api.js";
+
+const categories = await getAllCategories();
+
+export async function getStaticPaths() {
+  const categories = await getAllCategories();
+  return categories.items.map((item: any) => {
+    return {
+      params: {
+        category: item.basename,
+      },
+      props: {
+        categoryID: item.id,
+        categoryLabel: item.label,
+        categoryDescription: item.description,
+      },
+    };
+  });
+}
+
+const { category } = Astro.params;
+const { categoryID, categoryLabel, categoryDescription } = Astro.props;
+
+const entries = await getCategoriesPost(categoryID, 5);
+
+const title: string = categoryLabel;
+const description: string = categoryDescription;
+const url: string = `https://example.com/archives/${category}`;
+const image: string = "https://example.com/img/ogp.png";
+const type: string = "website";
+---
+
+<Layout title={title} description={description} url={url} image={image} type={type}>
+  <main class="pt-6 pb-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="border-b border-gray-100 pb-2">
+        <h2 class="text-lg font-bold sm:text-xl">{title} カテゴリの記事</h2>
+      </div>
+      <div class="mt-6">
+        <ul class="list-disc list-outside ml-4 space-y-4">
+          {
+            entries.items.map((item: any) => (
+              <li>
+                {/* 本来は→のようにリンクを指定するが今回はサンプルで記事ページを全部書き出していないため仮 <a class="underline hover:text-red-800" href={`/articles/${item.basename}`}> */}
+                <a class="underline hover:text-red-800" href="#">
+                  {item.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="mt-16 border-b border-gray-100 pb-2">
+        <h2 class="text-lg font-bold sm:text-xl">カテゴリ一覧</h2>
+      </div>
+      <div class="mt-6">
+        <ul>
+          {
+            categories.items.map((item: any) => (
+              <li class="inline-block">
+                <a class="inline-block p-2 mr-2 mb-2 border-gray-100 bg-gray-50 rounded-md hover:border-indigo-800 hover:bg-indigo-600 hover:text-white" href={`/archives/${item.basename}`}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </main>
+</Layout>
