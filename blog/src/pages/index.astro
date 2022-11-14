@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { getAllPosts } from "../lib/api.js";
 
-const entries = await getAllPosts();
+const entries = await getAllPosts(5);
 
 const description: string = "サンプルブログのトップページです。";
 const url: string = "https://example.com/";

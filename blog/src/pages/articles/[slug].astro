@@ -5,7 +5,7 @@ import LinkButton from "../../components/LinkButton.astro";
 import { getAllPosts } from "../../lib/api.js";
 
 export async function getStaticPaths() {
-  const entries = await getAllPosts();
+  const entries = await getAllPosts(5);
   return entries.items.map((item: any) => {
     return {
       params: {

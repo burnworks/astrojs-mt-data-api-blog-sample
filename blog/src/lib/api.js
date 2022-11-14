@@ -6,14 +6,14 @@ const fetchAPI = async (path) => {
     return json;
 }
 
-const fetchAllPosts = () => {
-    const params = [['limit', '5'], ['status', 'Publish']];
+const fetchAllPosts = (num) => {
+    const params = [['limit', num], ['status', 'Publish']];
     const param = new URLSearchParams(params).toString();
 
     return fetchAPI(`?${param}`);
 }
 
-export const getAllPosts = async () => {
-    const data = await fetchAllPosts();
+export const getAllPosts = async (num) => {
+    const data = await fetchAllPosts(num);
     return data;
 }
