@@ -5,7 +5,7 @@ import LinkButton from "../../components/LinkButton.astro";
 import { getAllPosts } from "../../lib/api.js";
 
 export async function getStaticPaths() {
-  // サンプルのためとりあえず最新5件分の記事ページのみ生成している
+  // サンプルのためとりあえず最新5件分の記事ページのみ生成している（本来は何かしら別の方法で個別記事のパス一覧を取得して、それを基に個別記事データを取りに行くなどする方がよい）
   const entries = await getAllPosts(5);
   return entries.items.map((item: any) => {
     return {
