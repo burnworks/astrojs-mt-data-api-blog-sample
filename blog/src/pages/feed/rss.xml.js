@@ -3,7 +3,7 @@ import { getAllPosts } from '../../lib/api.js';
 
 const entries = await getAllPosts(5);
 const siteName = "Astro.js Sample Blog";
-const description = "サンプルブログのトップページです。";
+const description = "サンプルブログです。";
 const url = "https://example.com/";
 
 export const get = () => rss({
