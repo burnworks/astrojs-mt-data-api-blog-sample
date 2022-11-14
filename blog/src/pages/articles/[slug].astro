@@ -5,7 +5,9 @@ import LinkButton from "../../components/LinkButton.astro";
 import { getAllPosts } from "../../lib/api.js";
 
 export async function getStaticPaths() {
+  // サンプルのためとりあえず最新5件分の記事ページのみ生成している
   const entries = await getAllPosts(5);
+  console.log(entries);
   return entries.items.map((item: any) => {
     return {
       params: {
@@ -25,10 +27,10 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const { title, excerpt, body, more, image } = Astro.props;
 
-const url = `/articles/${slug}`;
+const url = `https://example.com/articles/${slug}`;
 ---
 
-<Layout description={excerpt} url={url} image={image} type="Article">
+<Layout title={title} description={excerpt} url={url} image={image} type="Article">
   <main class="pt-6 pb-16 bg-white">
     <div class="max-w-7xl mx-auto px-4">
       <div class="border-b border-gray-100 pb-2">
