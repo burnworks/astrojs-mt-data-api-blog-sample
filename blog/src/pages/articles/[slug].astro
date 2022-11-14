@@ -7,7 +7,6 @@ import { getAllPosts } from "../../lib/api.js";
 export async function getStaticPaths() {
   // サンプルのためとりあえず最新5件分の記事ページのみ生成している
   const entries = await getAllPosts(5);
-  console.log(entries);
   return entries.items.map((item: any) => {
     return {
       params: {
