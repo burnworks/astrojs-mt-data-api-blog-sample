@@ -1,8 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getAllPosts } from "../lib/api.js";
+import { getAllPosts, getAllCategories } from "../lib/api.js";
 
 const entries = await getAllPosts(5);
+const categories = await getAllCategories();
 
 const description: string = "サンプルブログのトップページです。";
 const url: string = "https://example.com/";
@@ -23,6 +24,22 @@ const type: string = "website";
               <li>
                 <a class="underline hover:text-red-800" href={`/articles/${item.basename}`}>
                   {item.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="mt-16 border-b border-gray-100 pb-2">
+        <h2 class="text-lg font-bold sm:text-xl">カテゴリ一覧</h2>
+      </div>
+      <div class="mt-6">
+        <ul>
+          {
+            categories.items.map((item: any) => (
+              <li class="inline-block">
+                <a class="inline-block p-2 mr-2 mb-2 border-gray-100 bg-gray-50 rounded-md hover:border-indigo-800 hover:bg-indigo-600 hover:text-white" href={`/archives/${item.basename}`}>
+                  {item.label}
                 </a>
               </li>
             ))
