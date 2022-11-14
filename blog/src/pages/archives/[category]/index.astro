@@ -1,8 +1,7 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
+import LinkButton from "../../../components/LinkButton.astro";
 import { getAllCategories, getCategoriesPost } from "../../../lib/api.js";
-
-const categories = await getAllCategories();
 
 export async function getStaticPaths() {
   const categories = await getAllCategories();
@@ -12,6 +11,7 @@ export async function getStaticPaths() {
         category: item.basename,
       },
       props: {
+        categories: categories,
         categoryID: item.id,
         categoryLabel: item.label,
         categoryDescription: item.description,
@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.params;
-const { categoryID, categoryLabel, categoryDescription } = Astro.props;
+const { categories, categoryID, categoryLabel, categoryDescription } = Astro.props;
 
 const entries = await getCategoriesPost(categoryID, 5);
 
@@ -51,6 +51,9 @@ const type: string = "website";
             ))
           }
         </ul>
+      </div>
+      <div class="mt-10 text-center">
+        <LinkButton label="トップページに戻る" href="/" />
       </div>
       <div class="mt-16 border-b border-gray-100 pb-2">
         <h2 class="text-lg font-bold sm:text-xl">カテゴリ一覧</h2>
