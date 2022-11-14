@@ -1,0 +1,59 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Pagination from "../../components/Pagination.astro";
+import { getAllPosts, getAllCategories } from "../../lib/api.js";
+
+export async function getStaticPaths({ paginate }: any) {
+  const entries = await getAllPosts(5);
+  return paginate(entries.items, { pageSize: 2 });
+}
+
+const { page } = Astro.props;
+const categories = await getAllCategories();
+
+const title: string = `記事一覧（${page.currentPage} / ${page.lastPage}）ページ`;
+const description: string = `サンプルブログの記事一覧（${page.currentPage} / ${page.lastPage}）ページです。`;
+const url: string = `https://example.com/archives/${page.currentPage}`;
+const image: string = "https://example.com/img/ogp.png";
+const type: string = "website";
+---
+
+<Layout title={title} description={description} url={url} image={image} type={type}>
+  <main class="pt-6 pb-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="border-b border-gray-100 pb-2">
+        <h2 class="text-lg font-bold sm:text-xl">新着記事</h2>
+      </div>
+      <div class="mt-6">
+        <ul class="list-disc list-outside ml-4 space-y-4">
+          {
+            page.data.map((item: any) => (
+              <li>
+                <a class="underline hover:text-red-800" href={`/articles/${item.basename}`}>
+                  {item.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <Pagination page={page} />
+      <div class="mt-16 border-b border-gray-100 pb-2">
+        <h2 class="text-lg font-bold sm:text-xl">カテゴリ一覧</h2>
+      </div>
+      <div class="mt-6">
+        <ul>
+          {
+            categories.items.map((item: any) => (
+              <li class="inline-block">
+                <a class="inline-block p-2 mr-2 mb-2 border-gray-100 bg-gray-50 rounded-md hover:border-indigo-800 hover:bg-indigo-600 hover:text-white" href={`/archives/${item.basename}`}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </main>
+</Layout>

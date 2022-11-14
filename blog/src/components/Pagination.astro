@@ -1,0 +1,41 @@
+---
+export interface Props {
+  page: any;
+}
+
+const { page } = Astro.props;
+---
+
+<div class="mt-10">
+  <ul class="flex justify-center items-center space-x-8">
+    {
+      page.url.prev && (
+        <li>
+          <a href={`${page.url.prev}`} class="flex items-center justify-center rounded-md border border-gray-300 bg-white w-10 h-10 text-gray-700 hover:bg-gray-50">
+            <span class="sr-only">前のページへ</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </a>
+        </li>
+      )
+    }
+    <li>
+      <span class="flex items-center justify-center border rounded-md border-indigo-500 bg-indigo-50 w-10 h-10 font-bold font-en text-indigo-600">
+        {page.currentPage}
+      </span>
+    </li>
+    {
+      page.url.next && (
+        <li>
+          <a href={`${page.url.next}`} class="flex items-center justify-center rounded-md border border-gray-300 bg-white w-10 h-10 text-gray-700 hover:bg-gray-50">
+            <span class="sr-only">次のページへ</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </a>
+        </li>
+      )
+    }
+  </ul>
+</div>
