@@ -31,3 +31,7 @@ SECRET_MT_ENDPOINT_URL=https://example.com/path_to_MT/mt-data-api.cgi/v4/sites/{
 ```shell
 npm run dev
 ```
+
+## Demo
+
+CodeSandbox: https://codesandbox.io/s/astrojs-mt-data-api-blog-sample-w2h1h8
