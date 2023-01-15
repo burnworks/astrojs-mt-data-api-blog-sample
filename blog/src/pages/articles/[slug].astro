@@ -1,13 +1,25 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import LinkButton from "../../components/LinkButton.astro";
-
 import { getAllPosts } from "../../lib/api.js";
+
+interface itemType {
+  basename: string;
+  title: string;
+  excerpt: string;
+  body: string;
+  more: string;
+  customFields: customFieldsType[];
+}
+
+interface customFieldsType {
+  [key: string]: string;
+}
 
 export async function getStaticPaths() {
   // サンプルのためとりあえず最新5件分の記事ページのみ生成している（本来は何かしら別の方法で個別記事のパス一覧を取得して、それを基に個別記事データを取りに行くなどする方がよい）
   const entries = await getAllPosts(5);
-  return entries.items.map((item: any) => {
+  return entries.items.map((item: itemType) => {
     return {
       params: {
         slug: item.basename,

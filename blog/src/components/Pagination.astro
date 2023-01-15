@@ -1,6 +1,15 @@
 ---
 export interface Props {
-  page: any;
+  page: pageType;
+}
+
+interface pageType {
+  url: urlType;
+  currentPage: number;
+}
+
+interface urlType {
+  [key: string]: string | undefined;
 }
 
 const { page } = Astro.props;

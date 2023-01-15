@@ -2,8 +2,15 @@
 import Layout from "../../layouts/Layout.astro";
 import Pagination from "../../components/Pagination.astro";
 import { getAllPosts, getAllCategories } from "../../lib/api.js";
+import type { GetStaticPathsOptions } from "astro";
 
-export async function getStaticPaths({ paginate }: any) {
+interface itemType {
+  basename: string;
+  title: string;
+  label: string;
+}
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const entries = await getAllPosts(5);
   return paginate(entries.items, { pageSize: 2 });
 }
@@ -27,7 +34,7 @@ const type: string = "website";
       <div class="mt-6">
         <ul class="list-disc list-outside ml-4 space-y-4">
           {
-            page.data.map((item: any) => (
+            page.data.map((item: itemType) => (
               <li>
                 <a class="underline hover:text-red-800" href={`/articles/${item.basename}`}>
                   {item.title}
@@ -44,7 +51,7 @@ const type: string = "website";
       <div class="mt-6">
         <ul>
           {
-            categories.items.map((item: any) => (
+            categories.items.map((item: itemType) => (
               <li class="inline-block">
                 <a class="inline-block p-2 mr-2 mb-2 border-gray-100 bg-gray-50 rounded-md hover:border-indigo-800 hover:bg-indigo-600 hover:text-white" href={`/archives/${item.basename}`}>
                   {item.label}
